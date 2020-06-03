@@ -1,9 +1,7 @@
-# pekkalacd.github.io
-a free website/tool made for the virtual sports card community on Youtube
-
 # groupbreakers.io
 
-This is a website which aims to automate the common randomization tasks of group breakers on Youtube. 
+This is a a free website/tool made for the virtual sports card community on Youtube. 
+This site aims to lower the customer wait time for randomizations.
 
 ## Features
 - Multiple and simultaneous randomizations on the same screen
