@@ -1,0 +1,552 @@
+<!DOCTYPE html> 
+
+<head> 
+	<title>Group Break Random</title>
+</head>
+
+	<!-- connecting main.css stylization with html file --> 
+	<link href = "main.css" type = "text/css" rel = "stylesheet">
+
+	<!-- banner menu -->
+	<div id = "banner">
+
+		<!-- about link on banner --> 
+		<div id = "about"><span style = "font-family: tahoma; font-size: 15px; color: blue"><a href = "About.html">About</a></span></div>
+
+		<div id = "tutorial"><span style = "font-family: tahoma; font-size: 15px; color: blue"><a href = "Tutorial.html">Tutorial</a></span></div>
+
+
+	</div>
+
+	<!-- tag used for testing purposes --> 
+	<h3 id = "place"></h3>
+
+	<body>
+
+	<h1><b>Welcome Group Breakers!</b></h1>
+
+	<br><br><br><br>
+
+	<!-- this is a separator between the banner & the randomizer --> 
+	<div id = "flag">
+	</div>
+
+
+	<div id = "randomizer">
+
+		<!-- random teams / players / etc menu  -->
+		<div id = "NFL"><button onclick = "randomNFL()" style = "width: 100px; background-color: #B19CD9; outline: none; border: none;">NFL</button></div>
+		<div id = "NBA"><button onclick = "randomNBA()" style = "width: 100px; background-color: #B19CD9; outline: none; border: none;">NBA</button></div>
+		<div id = "NHL"><button onclick = "randomNHL()" style = "width: 100px; background-color: #B19CD9; outline: none; border: none;">NHL</button></div>
+		<div id = "MLB"><button onclick = "randomMLB()" style = "width: 100px; background-color: #B19CD9; outline: none; border: none;">MLB</button></div>
+		<div id = "MANUAL"><button onclick = "clear_left()" style = "width: 100px ; background-color: #FFFF66; border: none; outline: none;">Manual</button></div>
+
+		<!-- division menu --> 
+		<div id = "DIVISION"><button onclick = "randomDivisions()" style = "width: 100px; background-color: #ADD8E6; border: none; outline: none;">Divisions</button></div>
+		<div id = "NFL_DIVS"><button onclick = "randomDIVS_NFL()" style = "width: 100px; background-color: #20B2AA; border: none; outline: none;">NFL_DIV</button></div>
+		<div id = "NBA_DIVS"><button onclick = "randomDIVS_NBA()" style = "width: 100px; background-color: #20B2AA; border: none; outline: none;">NBA_DIV</button></div>
+		<div id = "NHL_DIVS"><button onclick = "randomDIVS_NHL()" style = "width: 100px; background-color: #20B2AA; border: none; outline: none;">NHL_DIV</button></div>
+		<div id = "MLB_DIVS"><button onclick = "randomDIVS_MLB()" style = "width: 100px; background-color: #20B2AA; border: none; outline: none;">MLB_DIV</button></div>
+		<div id = "DIV_MANUAL"><button onclick = "clear_left()" style = "width: 100px ; background-color: #FFFF66; border: none; outline: none;">Manual</button></div>
+		<div id = "DIV_BACK"><button onclick = "hide_breaks(); hide_divisions(); display_sports(); clear_left();" style = "width: 100px; background-color: #FED8B1; border: none; outline: none;">BACK</button></div>
+
+		<!-- These 'break style' buttons display on window load -->
+
+		<!-- by default, when randomTeams is clicked, the user will be able to manually enter data into the left field. --> 
+		<div id = "randomTeams"><button onclick="randomTeams(); clear_left()" style = "width: 300px">Random Team, Division, Player</button></div>
+
+		<!-- by default, when randomNumbers is clicked, the user will be able to manually enter data into the left field --> 
+		<div id = "randomNumbers"><button onclick="randomNumbers(); clear_left();" style = "width: 300px">Random Number</button></div>
+
+		<!-- user will enter the start, stop, and step of a the number range they want auto populated into the left box -->
+		<input type = "number" min = "0" id = "start" value = "" style = "width: 50px; overflow: hidden; height: 20px;" maxlength = "6" placeholder = "start">
+		<input type = "number" id = "stop" min = "1" value = "" style = "width: 50px; overflow: hidden; height: 20px;" maxlength = "6" placeholder = "stop">
+		<input type = "number" id = "step" min = "1" value = "" style = "width: 50px; overflow: hidden; height: 20px;" maxlength = "6" placeholder = "step">
+		<input type = "submit" value = "Submit" id = "submit_Numbers" onclick = "generate_nums()" style = "width: 100px; background-color: #CBBDB0; border: none; outline: none">
+		<button id = "NUM_BACK" onclick = "by_default(); clear_left();" style = "width: 100px; background-color: #FED8B1; border: none; outline: none"; >BACK</button>
+
+		<div id = "default"><button onclick="by_default(); clear_left();">RESET</button></div>
+
+		<!-- These are the boxes containing or accepting the data to be randomized once 'randomize'
+			is clicked and the user is forwarded to _Results page --> 
+		<textarea id = "left_box"></textarea>
+		<textarea id = "right_box"></textarea>
+
+		<!-- 'team_randomizer' is specifically for when the user selects random team style break --> 
+		<div id = "team_randomize"><button onclick = "window.location.href='TeamResults.html'; get_right(); get_left();">randomize</button></div>
+
+
+	</div>
+
+
+
+		<!-- GENERAL RE-USE FUNCTIONS: DISPLAYING / HIDING BUTTONS / TEXT -->
+		<script language = "javascript">
+
+			// a function to unhide button
+			function unhide(btn) {
+
+				document.getElementById(btn).style.visibility = "visible";
+			}
+
+			// a function to hide button
+			function hide(btn) {
+
+				document.getElementById(btn).style.visibility = "hidden";
+			}
+
+			// display break_style buttons 
+			function display_breaks() {
+
+				unhide("randomTeams");
+				unhide("randomNumbers");
+			}
+
+
+			// hide break_style buttons
+			function hide_breaks() {
+
+				hide("randomTeams");
+				hide("randomNumbers");
+			}
+
+
+			// unhide sport buttons
+			function display_sports() {
+
+				unhide("NFL");
+				unhide("NBA");
+				unhide("NHL");
+				unhide("MLB");
+				unhide("MANUAL");
+				unhide("DIVISION");
+			}
+
+			function hide_divisions() {
+
+				hide("NFL_DIVS");
+				hide("NBA_DIVS");
+				hide("NHL_DIVS");
+				hide("MLB_DIVS");
+				hide("DIV_MANUAL");
+				hide("DIV_BACK");
+			}
+
+
+			function display_divisions() {
+
+				unhide("NFL_DIVS");
+				unhide("NBA_DIVS");
+				unhide("NHL_DIVS");
+				unhide("MLB_DIVS");
+				unhide("DIV_MANUAL");
+				unhide("DIV_BACK");
+			}
+
+			// hide sport buttons
+			function hide_sports() {
+
+				hide("NFL");
+				hide("NBA");
+				hide("NHL");
+				hide("MLB");
+				hide("MANUAL");
+				hide("DIVISION");
+				hide("DIV_MANUAL");
+			}
+
+		</script>
+
+		<!-- THIS IS FOR THE UNIVERSAL FUNCTIONALITY OF THE HOME PAGE ---> 
+		<script language = "javascript">
+
+			// execute when homePage is loaded --> assume default lay out
+			window.onload = function preSet() {
+
+				by_default();
+			}
+
+
+			// default lay out of the buttons on & around the randomizer
+			function by_default() {
+
+				hide_sports();
+				hide_divisions();
+				display_breaks();
+
+				// hide the random number related buttons
+				hide("start");
+				hide("stop");
+				hide("step");
+				hide("submit_Numbers");
+				hide("NUM_BACK");
+				
+				// set attributes for left box
+				document.getElementById("left_box").setAttribute("placeholder", "Enter custom...");
+
+				// set attributes for right box
+				document.getElementById("right_box").setAttribute("placeholder", "Enter customers...");
+			}
+
+
+			function resetAtts(text) {
+
+				// reset attributes for left box
+				document.getElementById("left_box").style.fontWeight = "normal";
+				document.getElementById("left_box").value = text;
+				document.getElementById("left_box").readOnly = false;
+
+				// reset attributes for right box
+				document.getElementById("right_box").style.fontWeight = "normal";
+				document.getElementById("right_box").setAttribute("placeholder", "Enter customers...");
+				document.getElementById("right_box").readOnly = false;
+			}
+
+			// a function to clear the content of the left_box, used when 'manual' button is pressed
+			function clear_left() {
+
+				// set attributes for left box
+				document.getElementById("left_box").readOnly = false;
+				document.getElementById("left_box").style.fontWeight = "normal";
+				document.getElementById("left_box").value = "";
+				document.getElementById("left_box").setAttribute("placeholder", "Enter custom...");
+
+				// set attributes for right box
+				document.getElementById("right_box").style.fontWeight = "normal";
+				document.getElementById("right_box").value = "";
+				document.getElementById("right_box").setAttribute("placeholder", "Enter customers...");
+				document.getElementById("right_box").readOnly = false;
+
+
+				// set attributes for start, stop, step
+				document.getElementById("start").value = "";
+				document.getElementById("stop").value = "";
+				document.getElementById("step").value = "";
+				document.getElementById("start").readOnly = false;
+				document.getElementById("stop").readOnly = false;
+				document.getElementById("step").readOnly = false;
+
+
+			}
+
+			// a function to get the data out of the right box on the randomizer
+			function get_right() {
+
+				var data = document.getElementById("right_box").value;
+
+				localStorage.setItem('customers', data);
+
+			}
+
+			// a function to get the data out of the left box on the randomizer
+			function get_left() {
+
+				var data = document.getElementById("left_box").value;
+
+				localStorage.setItem('click_sport', data);
+			}
+
+		</script>
+
+		<!-- THIS IS STRICTLY FOR THE FUNCTIONALITY OF THE 'RANDOM NUMBER' BUTTON / FEATURE ---> 
+		<script language = "javascript">
+
+			function randomNumbers() {
+
+
+				// generalize default settings for left & right box
+				by_default();
+
+				// hide the sport buttons
+				hide_sports();
+
+				// hide the break buttons
+				hide_breaks();
+
+				// hide the division buttons
+				hide_divisions();
+
+				// unhide start, stop, step, and submit
+				unhide("start");
+				unhide("stop");
+				unhide("step");
+				unhide("submit_Numbers");
+				unhide("NUM_BACK");
+
+				// unhide randomize button
+				unhide("team_randomize");
+
+
+			}
+
+
+			function generate_nums() {
+
+				// get the start, stop, and step integer values
+				var start = parseInt(document.getElementById("start").value);
+				var stop = parseInt(document.getElementById("stop").value);
+				var step = parseInt(document.getElementById("step").value);
+
+				var text = "";
+
+				// generate text in left box with given start, stop, step
+				for(var i = start; i <= stop; i+=step) {
+
+					if(i == stop) {
+
+						text += String(i);
+					}
+
+					else {
+
+						text += String(i) + "\n";
+					}
+				}
+
+				resetAtts(text);
+
+
+			}
+
+		</script>
+
+
+		<!--THIS IS STRICTY FOR THE FUNCTIONALITY OF THE 'RANDOM TEAM' BUTTON / FEATURE  & ITS SUBSETS (NFL, NHL, NBA, MLB, MANUAL, DIVISIONS {NFL_DIV, NBA_DIV, NHL_DIV, MLB_DIV} )----> 
+		<script language = "javascript">
+
+
+			function randomTeams() {
+
+					display_sports();
+					hide_breaks();
+					hide_divisions();
+					hide("DIV_BACK");
+			}
+
+
+			function randomDivisions() {
+
+					hide_sports();
+					display_divisions();
+					hide("DIVISION");
+			}
+
+			// a function that converts an string array containing the nfl divisions into a textual format
+			function randomDIVS_NFL() {
+
+				var nfl_divs = ['AFC NORTH', 'AFC SOUTH', 'AFC EAST', 'AFC WEST', 'NFC SOUTH', 'NFC EAST',
+				'NFC NORTH', 'NFC WEST'];
+
+				var text = "";
+
+				for(var i = 0; i < nfl_divs.length; i++) {
+
+					if(i == nfl_divs.length - 1) {
+
+						text += nfl_divs[i];
+					}
+
+					else {
+
+						text += nfl_divs[i] + "\n";
+					}
+				}
+
+				// resets the attributes to both the right & left box
+				resetAtts(text);
+			}
+
+
+			// a function that converts an string array containing the nba divisions into a textual format
+			function randomDIVS_NBA() {
+
+				var nba_divs = ['PACIFIC', 'SOUTHWEST', 'NORTHWEST', 'ATLANTIC', 'CENTRAL', 'SOUTHEAST'];
+
+				var text = "";
+
+				for(var i = 0; i < nba_divs.length; i++) {
+
+					if(i == nba_divs.length - 1) {
+
+						text += nba_divs[i];
+					}
+
+					else {
+
+						text += nba_divs[i] + "\n";
+					}
+				}
+
+				// resets the attributes to both the right & left box
+				resetAtts(text);
+			}
+
+
+			// a function that converts an string array containing the nhl divisions into a textual format
+			function randomDIVS_NHL() {
+
+				var nhl_divs = ['ATLANTIC', 'METROPOLITAN', 'CENTRAL', 'PACIFIC'];
+
+				var text = "";
+
+				for(var i = 0; i < nhl_divs.length; i++) {
+
+					if(i == nhl_divs.length - 1) {
+
+						text += nhl_divs[i];
+					}
+
+					else {
+
+						text += nhl_divs[i] + "\n";
+					}
+				}
+
+				// resets the attributes to both the right & left box
+				resetAtts(text);
+			}
+
+
+			// a function that converts an string array containing the mlb divisions into a textual format
+			function randomDIVS_MLB() {
+
+				var mlb_divs = ['AL CENTRAL', 'NL WEST', 'NL CENTRAL', 'AL EAST', 'AL WEST', 'NL EAST'];
+
+				var text = "";
+
+				for(var i = 0; i < mlb_divs.length; i++) {
+
+					if(i == mlb_divs.length - 1) {
+
+						text += mlb_divs[i];
+					}
+
+					else {
+
+						text += mlb_divs[i] + "\n";
+					}
+				}
+
+				// resets the attributes to both the right & left box
+				resetAtts(text);
+			}
+
+
+			// if randomTeams --> NFL
+			function randomNFL() {
+
+				var nfl_teams = ['Arizona Cardinals', 'Atlanta Falcons', 'Baltimore Ravens',
+				'Buffalo Bills', 'Carolina Panthers', 'Chicago Bears', 'Cincinnati Bengals',
+				'Cleveland Browns', 'Dallas Cowboys', 'Denver Broncos', 'Detroit Lions', 
+				'Green Bay Packers', 'Houston Texans', 'Indianapolis Colts', 'Jacksonville Jaguars',
+				'Kansas City Chiefs', 'Los Angeles Rams', 'Miami Dolphins', 'Minnesota Vikings', 
+				'Los Angeles Chargers', 'New England Patriots', 'New Orleans Saints', 'New York Giants', 
+				'New York Jets', 'Oakland Raiders', 'Philadelphia Eagles', 'Pittsburgh Steelers', 
+				'San Francisco 49ers', 'Seattle Seahawks', 'Tampa Bay Buccaneers', 'Tennessee Titans', 
+				'Washington Redskins'];
+
+				var text = "";
+
+				for(var i = 0; i < nfl_teams.length; i++) {
+
+					if(i == nfl_teams.length - 1) {
+
+						text += nfl_teams[i];
+					}
+
+					else {
+
+						text += nfl_teams[i]+"\n";
+					}
+				}
+
+				// resets the attributes to both the right & left box
+				resetAtts(text);
+			}
+
+			// if randomTeams --> NBA
+			function randomNBA() {
+
+				var nba_teams = ['Atlanta Hawks', 'Boston Celtics', 'Brooklyn Nets', 'Charlotte Hornets', 
+				'Chicago Bulls', 'Cleveland Cavaliers', 'Dallas Mavericks', 'Denver Nuggets', 'Detriot Pistons', 'Golden State Warriors', 'Houston Rockets', 'Indiana Pacers', 'Los Angeles Clippers', 'Los Angeles Lakers', 'Memphis Grizzlies', 'Miami Heat', 'Milwaukee Bucks',
+				'Minnesota Timberwolves', 'New Orleans Pelicans', 'New York Knicks', 'Oklahoma City Thunder', 'Orlando Magic', 'Philadelphia 76ers', 'Phoenix Suns', 'Portland Trail Blazers', 
+				'Sacremento Kings', 'San Antonio Spurs', 'Toronto Raptors', 'Utah Jazz', 'Washington Wizards'];
+
+				var text = "";
+
+				for(var i = 0; i < nba_teams.length; i++) {
+
+					if(i == nba_teams.length - 1) {
+
+						text += nba_teams[i];
+					}
+
+					else {
+
+						text += nba_teams[i] + "\n";
+					}
+
+				}
+
+				// resets the attributes to both the right & left box
+				resetAtts(text);
+			}
+
+			// if randomTeams --> NHL
+			function randomNHL() {
+
+				var nhl_teams = ['Anaheim Ducks', 'Arizona Coyotes', 'Boston Bruins', 'Buffalo Sabres', 'Calgary Flames', 'Carolina Hurricanes', 'Chicago Blackhawks', 'Colorado Avalanche', 'Columbus Blue Jackets', 'Dallas Stars', 'Detriot Red Wings', 'Edmonton Oilers', 'Florida Panthers', 'Los Angeles Kings', 'Minnesota Wild', 'Montreal Canadiens', 'Nashville Predators', 'New Jersey Devils', 'New York Islanders', 'New York Rangers', 'Ottawa Senators', 'Philadelphia Flyers', 'Tampa Bay Lightning', 'Pittsburgh Penguins', 'San Jose Sharks', 'Toronto Maple Leafs', 'Vancouver Canucks', 'Vegas Golden Knights', 'Washington Capitals', 'Winnipeg Jets', 'St. Louis Blues'];
+
+				var text = "";
+
+				for(var i = 0; i < nhl_teams.length; i++) {
+
+					if(i == nhl_teams.length - 1) {
+
+						text += nhl_teams[i];
+					}
+
+					else {
+
+						text += nhl_teams[i] + "\n";
+					}
+				}
+
+				// resets the attributes to both the right & left box
+				resetAtts(text);
+			}
+
+
+			// if randomTeams --> MLB
+			function randomMLB() {
+
+				var mlb_teams = ['Atlanta Braves', 'Miami Marlins', 'New York Mets', 'Philadelphia Phillies', 'Washington Nationals', 'Chicago Cubs', 'Cincinnati Reds', 'Milwaukee Brewers', 'Pittsburgh Pirates', 'St. Louis Cardinals', 'Arizona Diamondbacks', 'Colorado Rockies', 'Los Angeles Dodgers', 'San Diego Padres', 'San Francisco Giants', 'Baltimore Orioles','Boston Red Sox', 'New York Yankees', 'Tampa Bay Rays', 'Toronto Blue Jays', 'Chicago White Sox', 'Cleveland Indians', 'Detriot Tigers', 'Kansas City Royals', 'Minnesota Twins', 'Houston Astros', 'Los Angeles Angels', 'Oakland Athletics', 'Seattle Mariners', 'Texas Rangers'];
+
+				var text = "";
+				for(var i = 0; i < mlb_teams.length; i++) {
+
+
+					if(i == mlb_teams.length - 1) {
+
+						text += mlb_teams[i];
+					}
+
+					else {
+
+						text += mlb_teams[i]+"\n";
+
+					}
+				}
+
+				// resets the attributes to both the right & left box
+				resetAtts(text);
+			}
+
+		</script>
+
+
+	<p id = "result"></p>
+
+</body>
+
+</html>
