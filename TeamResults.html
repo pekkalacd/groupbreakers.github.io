@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<body>
+
+	<head>
+		<title>Results</title>
+	</head>
+
+	<!-- connecting main.css stylization with html file --> 
+	<link href = "main.css" type = "text/css" rel = "stylesheet">
+
+	<!-- banner menu -->
+	<div id = "banner">
+ 
+		<!-- about link on banner --> 
+		<div id = "HOME"><span style = "font-family: tahoma; font-size: 15px; color: white; position: relative; top: 10%; right: -290%;"><a href = "homePage.html">Home</a></span></div>
+
+	</div>
+
+	<h3 id = "place"></h3>
+
+
+	<script>
+
+		// when page is loaded --> execute triggerFunction()
+		window.onload = function preSet() {
+
+			// execute __main__ call function
+			triggerFunction();
+		}
+
+		// __main__ call function which calls other functions to do the randomization & display the data
+		function triggerFunction() {
+
+			var teams = get_SportClick();
+			var customers = get_Customers();
+
+			// if teams & customers don't have same lengths --> display error quit
+			if(teams.length != customers.length) {
+
+				document.getElementById("place").style.font = "bold 20px courier new";
+				document.getElementById("place").style.textAlign = "center";
+				document.getElementById("place").style.color = "red";
+				document.getElementById("place").innerHTML = "<br><br<br><br><br><br><br><br>Error: invalid parameters: <br> amount of teams/players/divisions ("+teams.length+") <br> and customers ("+(customers.length)+") do not match.";
+
+				return ;
+			}
+
+			randomize(teams);
+			randomize(customers);
+
+			tabularize(customers, teams);
+		}
+
+		/* gets the text value in the left box on homePage.html, parses it, and
+		returns it in the form of an array with white spaces removed*/
+		function get_SportClick() {
+
+			// teams collected from left_box on homePage.html
+			var value = localStorage.getItem('click_sport');
+
+			var text = "";
+
+			for(var i = 0; i < value.length; i++) {
+
+				text += value[i];
+			}
+
+			// check if blank --> user didn't enter any teams
+			if(text == "") {
+
+				document.getElementById("place").style.font = "bold 20px courier new";
+					document.getElementById("place").style.textAlign = "center";
+					document.getElementById("place").style.color = "red";
+					document.getElementById("place").innerHTML = "<br><br<br><br><br><br><br><br>Error: no teams/players/divisions entered";
+					return ;
+			}
+
+			// split teams into array 
+			var teams = text.split("\n");
+
+
+			for(var i = 0; i < teams.length; i++) {
+
+				if(teams[i] == "") {
+
+					teams.splice(i, 1);
+					i--; // remove all matching values
+				}
+
+			}
+
+			return teams;
+
+		}
+
+			// an algorithm (Fisher-Yates) which randomizes the members of an array
+			function randomize(array) {
+
+				for(var i = 0; i < array.length; i++) {
+
+						var j = Math.floor(Math.random() * (i+1));
+						var temp = array[i];
+						array[i] = array[j];
+						array[j] = temp;
+				}
+			}
+
+
+			/* gets the text value in the right box on homePage.html, parses it, 
+			and returns it in the form of an array with whitespaces removed */ 
+			function get_Customers() {
+
+				// get customers from right_box value on homePage.html
+				var value = localStorage.getItem('customers');
+
+				var text = "";
+
+				for(var i = 0; i < value.length; i++) {
+
+					text += value[i];
+				}
+
+
+				// check if text is blank --> user did not enter customers
+				if(text == "") {
+
+					document.getElementById("place").style.font = "bold 20px courier new";
+					document.getElementById("place").style.textAlign = "center";
+					document.getElementById("place").style.color = "red";
+					document.getElementById("place").innerHTML = "<br><br<br><br><br><br><br><br>Error: no customers entered";
+					return ;
+				}
+
+				// split raw text into array by delimeter new line
+				var customers = text.split("\n");
+
+				// if an entry is blank, remove it
+				for(var i = 0; i < customers.length; i++) {
+
+					if(customers[i] == "") {
+
+						customers.splice(i, 1);
+						i--;
+					}
+				}
+
+				// customers array
+				return customers;
+			}
+
+
+			/* Both arrays created through get_SportClick() and get_Customers(), are placed
+			into a tabular format and displayed on _Results.html */
+			function tabularize(customers, sport) {
+
+
+				var numbers = "<table>";
+
+				for(var n = 0; n < sport.length; n++) {
+
+					numbers += "<tr><td>"+String(n+1) + "</td></tr>";
+				}
+
+				numbers += "</table>";
+
+				document.getElementById("number_area").innerHTML = numbers;
+
+				var text = "";
+
+				for(var i = 0; i < sport.length; i++) {
+
+					text += "<tr><td>"+customers[i]+"</td><td>"+sport[i]+"</td></tr>";
+				}
+
+				// pass text to 'random_column1' element for display purposes
+				document.getElementById("random_column1").innerHTML = "<table>"+text+"</table>";
+
+				// pass text to 'random_table' element for export purposes
+				document.getElementById("random_table").innerHTML = text;
+
+			}
+
+
+			// function to export data from random results to excel automatically
+			function export2Excel() {
+ 			
+ 			// bolded text
+			var htmls = document.getElementById("random_table").innerHTML;
+
+            var uri = 'data:application/vnd.ms-excel;base64,';
+            var template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>'; 
+            var base64 = function(s) {
+                return window.btoa(unescape(encodeURIComponent(s)))
+            };
+
+            var format = function(s, c) {
+                return s.replace(/{(\w+)}/g, function(m, p) {
+                    return c[p];
+                })
+            };
+
+            var ctx = {
+                worksheet : 'Worksheet',
+                table : htmls
+            }
+
+
+            var link = document.createElement("a");
+            link.download = "RandomResults.xls";
+            link.href = uri + base64(format(template, ctx));
+            link.click();
+		}
+
+	</script> 
+
+	<div class = "noselect" id = "number_area"></div>
+	<div id = "random_column1"></div>
+	<table id = "random_table" style = "display: none"></table>
+
+	<!-- area for excel sheet download --> 
+	<iframe id = "txtArea" style = "display:none"></iframe>
+
+	<!-- general area containing the randomize & export button -->
+	<div id = "random_footer">
+
+	<!-- randomize & export buttons --> 
+	<button id = "main_display" onclick = "window.location.reload(); window.scrollTo(0,0);" style = "width: 80px">randomize</button>
+	<button id = "export_button" onclick = "export2Excel()" style = "width: 80px">export</button>
+
+	</div>
+
+
+	<h5 id = "no_mans_land"></h5>
+
+
+</body>
+
+</html>
+
+
+

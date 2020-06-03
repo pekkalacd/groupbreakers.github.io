@@ -1,0 +1,347 @@
+* {
+
+	word-break: keep-all;
+}
+
+
+textarea {
+
+	resize: none;
+}
+
+
+#unlocked {
+
+	font-family: Courier New;
+	font-size: 15px;
+	color: black;
+	background: white;
+	height: 350px;
+	width: 28vw;
+	border: none;
+	outline: none;
+	overflow: hidden;
+}
+/* --------------- all elements contained within body --------------- */ 
+
+body {
+
+	color: rgb(0,0,0);
+	text-align: left;
+	padding: 0px;
+	font-size: 20px;
+	overflow-y: scroll;
+}
+
+/* --------------- all elements contained within body --------------- */ 
+
+h1 {
+
+	color: rgb(0, 0, 255);
+	text-align: center;
+	left: 40%;
+	top: .7%;
+	position: absolute;
+	font-size: 20px;
+}
+
+
+/* ---------------- all elements contained within flag --------------- */
+
+#flag {
+
+	top: 45%;
+	color: white;
+	height: 60px;
+	width: 100vw;
+	text-align: center;
+}
+
+/* ----------- styling the sports buttons in randomizer --------- */
+
+#randomizer #NBA, #NBA_DIVS {
+
+	position: absolute;
+	top: 20%;
+	left: 17%;
+}
+
+#randomizer #NHL, #NHL_DIVS {
+
+	position: absolute;
+	top: 30%;
+	left: 5%;
+}
+
+
+#randomizer #MLB, #MLB_DIVS {
+
+	position: absolute;
+	top: 30%;
+	left: 17%;
+}
+
+#randomizer #NFL, #NFL_DIVS {
+
+	position: absolute;
+	top: 20%;
+	left: 5%;
+}
+
+#randomizer #DIV_MANUAL {
+
+	position: absolute;
+	top: 40%;
+	left: 17%;
+}
+
+#randomizer #DIV_BACK {
+
+	position: absolute;
+	top: 40%;
+	left: 5%;
+}
+
+#randomizer #DIVISION {
+
+	position: absolute;
+	top: 40%;
+	left: 5%;
+}
+
+#randomizer #MANUAL {
+
+	position: absolute;
+	top: 40%;
+	left: 17%;
+}
+
+/* --------------- styling the randomizer -------- */ 
+#randomizer {
+
+	color: white;
+	background: rgb(100, 100, 100);
+	height: 450px;
+	width: 90vw;
+	position: relative;
+	left: 5%;
+
+}
+
+/* --------------- styling the left most box inside the randomizier ----- */
+
+#left_box {
+
+	border: 2px solid black;
+	outline-width: thin;
+	outline-style: solid;
+	outline-color: black;
+	font-family: Courier New;
+	font-size: 15px;
+	color: black;
+	background: white;
+	height: 350px;
+	width: 28vw;
+	position: absolute;
+	left: 32%;
+	top: 6%;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+/* --------------- styling the right most box inside the randomizer ------ */
+
+#right_box {
+
+	border: 2px solid black;
+	outline-width: thin;
+	outline-style: solid;
+	outline-color: black;
+	font-family: Courier New;
+	font-size: 15px;
+	color: black;
+	background: white;
+	height: 350px;
+	width: 28vw;
+	position: absolute;
+	left: 67%;
+	top: 6%;
+	overflow-y: scroll;
+}
+
+
+/* ------------------ styling the buttons within the randomizer --------- */
+
+#randomizer #randomTeams {
+
+	position: absolute;
+	top: 20%;
+	left: 3%;
+}
+
+#randomizer #start {
+
+	position: absolute;
+	top: 20%;
+	left: 5%;
+}
+
+#randomizer #stop {
+
+	position: absolute;
+	top: 20%;
+	left: 12%;
+}
+
+#randomizer #step {
+
+	position: absolute;
+	top: 20%;
+	left: 19%;
+}
+
+#randomizer #submit_Numbers {
+
+	position: absolute;
+	top: 30%;
+	left: 17%;
+}
+
+#randomizer #NUM_BACK {
+
+	position: absolute;
+	top: 30%;
+	left: 5%;
+}
+
+#randomizer #randomNumbers {
+
+	position: absolute;
+	top: 30%;
+	left: 3%;
+}
+
+#randomizer #team_randomize {
+
+	position: absolute;
+	top: 90%;
+	left: 81.3%;
+}
+
+/* --------------- styling the banner --------------- */ 
+
+#banner {
+
+	color: white;
+	background: rgb(255, 255, 255);
+	height: 40px;
+	width: 100vw;
+	text-align: center;
+
+} 
+
+/* --------------- styling the 'about' link on the banner --------------- */ 
+
+#banner #about {
+
+	top: 10%;
+	left: 37%;
+	position: absolute; /* separate instance of absolute */
+}
+
+
+/* ---------------- styling the 'tutorial' link on the banner ------------ */
+
+#banner #tutorial {
+
+	top: 10%;
+	left: 57%;
+	position: absolute;
+}
+
+/* ----- when 'about' page displayed ~ 'About' link turns into 'Home' ----- */
+
+#banner #HOME {
+
+	top: 10%;
+	left: 37%;
+	position: absolute; /* separate instance of absolute */
+}
+
+
+#banner #RESULTS {
+
+	top: 10%;
+	left: 30%;
+	position: absolute;
+}
+
+
+#random_column1 {
+
+	top: 20%;
+	left: 39%;
+	font-size: 15px;
+	font-family: Arial;
+	padding-bottom: 70px;
+	position: absolute;
+}
+
+
+#random_table {
+
+	font-size: 20px;
+	font-family: Arial Black;
+}
+
+td {
+
+	padding: 0 40px 0 0; /* only space to the right of each column p */
+
+}
+
+
+#number_area {
+
+	top: 20%;
+	left: 35%;
+	font-size: 15px;
+	font-family: Arial;
+	padding-bottom: 70px;
+	position: absolute;
+}
+
+#random_footer {
+
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background-color: white;
+}
+
+#random_footer #main_display {
+
+	bottom: 10%;
+	left: 20%;
+	position: absolute;
+	background-color: #FFCCCB;
+}
+
+#random_footer #export_button {
+
+	bottom: 10%;
+	left: 10%;
+	position: absolute;
+	background-color: #98FB98;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
