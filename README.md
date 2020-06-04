@@ -1,6 +1,6 @@
 # groupbreakers.io
 
-This is a a free website/tool made for the virtual sports card community on Youtube. 
+This is a a free website/tool made for the virtual sports card community on Youtube written in HTML, CSS, and JavaScript. 
 This site aims to lower the customer wait time for randomizations.
 
 ## Features
