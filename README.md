@@ -11,5 +11,5 @@ This site aims to lower the customer wait time for randomizations.
 
 
 ## Use 
-### navigate to pekkalacd.github.io/index.html
+#### pekkalacd.github.io/index.html
 
